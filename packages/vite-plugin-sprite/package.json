@@ -1,0 +1,29 @@
+{
+  "name": "@curev/vite-plugin-sprite",
+  "version": "0.0.2",
+  "description": "",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "stub": "unbuild --stub",
+    "build": "unbuild"
+  },
+  "keywords": [],
+  "author": "chizuki",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/spritesmith": "^3.4.1",
+    "maybe-types": "^0.0.3",
+    "vite": "^4.0.1"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "minimatch": "^6.1.6",
+    "spritesmith": "^3.4.1"
+  }
+}

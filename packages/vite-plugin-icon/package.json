@@ -1,0 +1,21 @@
+{
+  "name": "@curev/vite-plugin-icon",
+  "version": "0.0.4",
+  "description": "",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "stub": "unbuild --stub",
+    "build": "unbuild"
+  },
+  "keywords": [],
+  "author": "chizuki",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^4.0.1"
+  }
+}
