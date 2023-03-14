@@ -23,7 +23,7 @@ interface SourceOptions {
    * @param entry
    * @returns
    */
-  filename?: (entry: { name: string; source: string; hash: string }) => string | string
+  filename?: ((entry: { name: string; source: string; hash: string }) => string) | string
 }
 
 export interface Sprite2CssPluginOptions {
