@@ -1,15 +1,15 @@
 {
   "name": "@curev/vite-plugin-icon",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "exports":{
-    ".":{
-      "import":"./dist/index.mjs",
-      "require":"./dist/index.cjs",
-      "types":"./dist/index.d.ts"
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [
@@ -22,11 +22,9 @@
   "keywords": [],
   "author": "chizuki",
   "license": "MIT",
-
   "devDependencies": {
     "vite": "^4.3.9"
   },
-
   "peerDependencies": {
     "vite": "^4"
   }
