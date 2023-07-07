@@ -8,14 +8,6 @@ export interface IconComponentOptions {
   suffix?: string
 }
 
-export interface IconComponentProps {
-  tag?: string
-  size?: string | number
-  width?: string | number
-  height?: string | number
-  color?: string
-}
-
 export function createIconComponentPlugin(options: IconComponentOptions = {}): Plugin {
   const suffix = options.suffix ?? "?icon";
   return {
@@ -31,7 +23,7 @@ export function createIconComponentPlugin(options: IconComponentOptions = {}): P
         import { h } from "vue";
 
         export function createIconComponent(url){
-         return (props)=>{
+         return (props = {})=>{
             const tag = props.tag ?? "i";
             const propSize = props.size ?? "16px";
             const size = typeof propSize === "number" ? propSize + "px" : propSize;
@@ -40,19 +32,35 @@ export function createIconComponentPlugin(options: IconComponentOptions = {}): P
             const propHeight = props.height ?? size;
             const height = typeof propHeight === "number" ? propHeight + "px" : propHeight;
             const color = props.color ?? "currentColor";
+            const mask = props.mask ?? url.endsWith(".svg");
+
+            if(!mask){
+              return h(tag, {
+                style: {
+                  "background-image": "url("+url+")",
+                  "height": height,
+                  "width": width,
+                  "display": "inline-block",
+                  ...(props.style ?? {}),
+                },
+                class: props.class,
+              });
+            }
 
             return h(tag, {
               style: {
-                "--svg-icon": url,
-                "mask": "var(--svg-icon) no-repeat",
+                "--icon-url": url,
+                "mask": "var(--icon-url) no-repeat",
                 "mask-size": "100% 100%",
-                "-webkit-mask": "var(--svg-icon) no-repeat",
+                "-webkit-mask": "var(--icon-url) no-repeat",
                 "-webkit-mask-size": "100% 100%",
                 "background-color": color,
                 "display": "inline-block",
                 "width": width,
                 "height": height,
-              }
+                ...(props.style ?? {}),
+              },
+              class: props.class,
             });
           }
         }`;

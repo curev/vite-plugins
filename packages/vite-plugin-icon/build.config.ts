@@ -1,3 +1,4 @@
+import fs from "fs";
 import { defineBuildConfig } from "unbuild";
 
 export default defineBuildConfig({
@@ -10,6 +11,11 @@ export default defineBuildConfig({
     emitCJS: true,
     dts: {
       respectExternal: false
+    }
+  },
+  hooks: {
+    "build:done": function () {
+      fs.copyFileSync("client.d.ts", "dist/client.d.ts");
     }
   }
 });

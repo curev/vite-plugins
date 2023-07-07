@@ -5,6 +5,13 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports":{
+    ".":{
+      "import":"./dist/index.mjs",
+      "require":"./dist/index.cjs",
+      "types":"./dist/index.d.ts"
+    }
+  },
   "files": [
     "dist/"
   ],
@@ -24,6 +31,10 @@
   "dependencies": {
     "fs-extra": "^11.1.0",
     "minimatch": "^6.1.6",
-    "spritesmith": "^3.4.1"
+    "spritesmith": "^3.4.1",
+    "vite":"^4.3.9"
+  },
+  "peerDependencies": {
+    "vite": ">4"
   }
 }
