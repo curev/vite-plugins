@@ -22,8 +22,9 @@ export function createIconComponentPlugin(options: IconComponentOptions = {}): P
         return `
         import { h } from "vue";
 
-        export function createIconComponent(url){
+        export function createIconComponent(url,extendsProps={}){
          return (props = {})=>{
+            props = {...extendsProps,...props};
             const tag = props.tag ?? "i";
             const propSize = props.size ?? "16px";
             const size = typeof propSize === "number" ? propSize + "px" : propSize;
@@ -37,7 +38,8 @@ export function createIconComponentPlugin(options: IconComponentOptions = {}): P
             if(!mask){
               return h(tag, {
                 style: {
-                  "background-image": "url("+url+")",
+                  "--icon-url": "url('"+url+"')",
+                  "background-image":"var(--icon-url)",
                   "height": height,
                   "width": width,
                   "display": "inline-block",
@@ -49,7 +51,7 @@ export function createIconComponentPlugin(options: IconComponentOptions = {}): P
 
             return h(tag, {
               style: {
-                "--icon-url": url,
+                "--icon-url": "url('"+url+"')",
                 "mask": "var(--icon-url) no-repeat",
                 "mask-size": "100% 100%",
                 "-webkit-mask": "var(--icon-url) no-repeat",
@@ -74,12 +76,21 @@ export function createIconComponentPlugin(options: IconComponentOptions = {}): P
       if (!svg) {
         return;
       }
-      const svgCode = await fs.promises.readFile(svg.id.replace(suffix, ""), { encoding: "utf-8" });
-      const svgCodeMin = svgCode.replace(/\s+/g, " ").trim();
-      const url = `url('data:image/svg+xml,${encodeURIComponent(svgCodeMin)}')`;
+      const filename = svg.id.replace(suffix, "");
+      const isSvg = filename.endsWith(".svg");
+      let url: string;
+      if (isSvg) {
+        const svgCode = await fs.promises.readFile(svg.id.replace(suffix, ""), { encoding: "utf-8" });
+        const svgCodeMin = svgCode.replace(/\s+/g, " ").trim();
+        url = `data:image/svg+xml,${encodeURIComponent(svgCodeMin)}`;
+      } else {
+        url = filename;
+      }
       return `
         import {createIconComponent} from "@curev/icon-component";
-        export default createIconComponent("${url}");
+        export default createIconComponent("${url}",{
+          mask: ${isSvg}
+        });
       `;
     }
   };
