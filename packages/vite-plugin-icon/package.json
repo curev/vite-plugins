@@ -13,7 +13,8 @@
     }
   },
   "files": [
-    "dist/"
+    "dist/",
+    "client.d.ts"
   ],
   "scripts": {
     "stub": "unbuild --stub",
